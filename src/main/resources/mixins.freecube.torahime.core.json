@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "fr.torahime.mixin.core",
+  "plugin": "fr.torahime.mixin.plugins.CorePlugin",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_17",
+  "server": [
+    "MixinMinecraftServer"
+  ]
+}

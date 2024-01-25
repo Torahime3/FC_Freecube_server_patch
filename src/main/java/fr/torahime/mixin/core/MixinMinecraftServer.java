@@ -22,23 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.example.mixin.core;
+package fr.torahime.mixin.core;
 
-import com.example.command.HelloCommand;
-import org.bukkit.command.Command;
-import org.bukkit.command.SimpleCommandMap;
+
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = SimpleCommandMap.class)
-public abstract class MixinSimpleCommandMap {
-  @Shadow public abstract boolean register(String fallbackPrefix, Command command);
+@Mixin(value = MinecraftServer.class)
+public abstract class MixinMinecraftServer {
 
-  @Inject(method = "setDefaultCommands()V", at = @At("TAIL"), remap = false)
-  public void registerOwnCommands(CallbackInfo callback) {
-    this.register("example", new HelloCommand("hello"));
+  @Redirect(method = "tickChildren", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V"))
+  public void freecube$disableSynchronizeTime(ServerGamePacketListenerImpl instance, Packet packet){
+
   }
+
 }

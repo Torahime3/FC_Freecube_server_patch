@@ -1,7 +1,7 @@
 {
-  "id": "example",
+  "id": "fc_freecube",
   "version": "1.0.0",
   "mixins": [
-    "mixins.example.core.json"
+    "mixins.freecube.torahime.core.json"
   ]
 }
